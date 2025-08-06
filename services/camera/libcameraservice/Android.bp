@@ -243,7 +243,11 @@ cc_library {
         "-Wextra",
         "-Werror",
         "-Wno-ignored-qualifiers",
-    ],
+    ] + select(soong_config_variable("camera", "disable_torch_control"), {
+        true: ["-DDISABLE_TORCH_CONTROL"],
+        false: [],
+        default: [],
+    }),
 }
 
 cc_library_static {
